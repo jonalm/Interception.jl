@@ -90,3 +90,17 @@ end
 		@test intercepts(s1, box) && intercepts(s2, box)
 	end
 end
+
+@testset "test AxisAlignedBox area" begin
+	box = AxisAlignedBox(Point3(-0.5), Point3(0.5))
+	@test isapprox(area(box), 6.0)
+	box = AxisAlignedBox(Point3(0.0), Point3(1.0,1.0,2.0))
+	@test isapprox(area(box), 10.0)
+end
+
+
+@testset "test Error for invalid AxisAlignedBox construction" begin
+	a, b = Point3(-0.5), Point3(0.5)
+	@test_throws AssertionError AxisAlignedBox(b, a)
+	@test_throws AssertionError AxisAlignedBox(a, a)
+end
